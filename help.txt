@@ -1,0 +1,10 @@
+#my linux record
+
+----------------------------------------
+problem:close report of the system fault.
+method:change file:/etc/default/apport
+    enabled=0
+----------------------------------------
+
+
+
