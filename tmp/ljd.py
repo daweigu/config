@@ -18,11 +18,12 @@ class Flowdata(object):
     This is the static variable space
     """
     ljd = 0
-    oldtime = time.now()
+    oldtime = datetime.datetime.strptime('00000000000000',"%Y%m%d%H%M%S")
+    time_delta = 1
     out_put_file = {}
-	liuliang = 0
-	cha_liuliang = 0
-    time_set_seconds = 0
+    liuliang = 0
+    cha_liuliang = 0
+    
     def __init__(self,line):
         """
         This function can create a Flowdata from a str.
@@ -77,6 +78,14 @@ class Flowdata(object):
         self.spc = words[20]
         self.dpc = words[21]
 
+    def process(self):
+        deltatime = self.time - oldtime
+        total_seconds = deltatime.total_seconds()
+        if total_seconds > time_delta:
+            self.write_file()
+        else:
+            liuliang = liuliang + self.bytes
+
 
 
 if __name__ == '__main__':
@@ -103,7 +112,7 @@ def str_to_time(line):
     Returns:
     a time val.
     """
-    return strptime(line,"%Y%m%d%H%M%S")
+    return datetime.datetime.strptime(line,"%Y%m%d%H%M%S")
 
 def output_dic(dic,oldtime):
     """
